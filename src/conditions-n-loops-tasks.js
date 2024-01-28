@@ -127,8 +127,23 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const numerals = [
+    { value: 10, numeral: 'X' },
+    { value: 9, numeral: 'IX' },
+    { value: 5, numeral: 'V' },
+    { value: 4, numeral: 'IV' },
+    { value: 1, numeral: 'I' },
+  ];
+  let romanNumeral = '';
+  let number = num;
+  for (let i = 0; i < numerals.length; i += 1) {
+    while (number >= numerals[i].value) {
+      romanNumeral += numerals[i].numeral;
+      number -= numerals[i].value;
+    }
+  }
+  return romanNumeral;
 }
 
 /**
@@ -315,8 +330,44 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const arr = [];
+  let rowStart = 0;
+  let colStart = 0;
+  let rowEnd = size - 1;
+  let colEnd = size - 1;
+  let counter = 1;
+
+  for (let i = 0; i < size; i += 1) {
+    arr[i] = [];
+  }
+
+  while (colStart <= colEnd && rowStart <= rowEnd) {
+    for (let i = colStart; i <= colEnd; i += 1) {
+      arr[rowStart][i] = counter;
+      counter += 1;
+    }
+    rowStart += 1;
+
+    for (let i = rowStart; i <= rowEnd; i += 1) {
+      arr[i][colEnd] = counter;
+      counter += 1;
+    }
+    colEnd -= 1;
+
+    for (let i = colEnd; i >= colStart; i -= 1) {
+      arr[rowEnd][i] = counter;
+      counter += 1;
+    }
+    rowEnd -= 1;
+
+    for (let i = rowEnd; i >= rowStart; i -= 1) {
+      arr[i][colStart] = counter;
+      counter += 1;
+    }
+    colStart += 1;
+  }
+  return arr;
 }
 
 /**
